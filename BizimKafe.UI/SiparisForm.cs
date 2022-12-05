@@ -13,6 +13,8 @@ namespace BizimKafe.UI
 {
     public partial class SiparisForm : Form
     {
+        public event MasaTasindiEventHandler MasaTasindi;
+
         private readonly KafeVeri _db;
         private readonly Siparis _siparis;
         public SiparisForm(KafeVeri db,Siparis siparis)
@@ -33,6 +35,20 @@ namespace BizimKafe.UI
             lblMasaNo.Text = _siparis.MasaNo.ToString("00");
             lblOdemeTutari.Text = _siparis.ToplamTutarTL;
             dgvSiparisDetaylar.DataSource= _siparis.SiparisDetaylar.ToList(); // To list metodu bir lsiteyi kopyalayıp yenisini olusturur.
+            MasanoLariYukle();
+        }
+
+        private void MasanoLariYukle()
+        {
+            cmbMasaNo.Items.Clear();
+            for (int i = 1; i <= _db.MasaAdet; i++)
+            {
+                if (!_db.AktifSiparisler.Any(x => x.MasaNo == i))
+                {
+                    cmbMasaNo.Items.Add(i);
+                }
+
+            }
         }
 
         private void btnEkle_Click(object sender, EventArgs e)
@@ -82,5 +98,25 @@ namespace BizimKafe.UI
             DialogResult = DialogResult.OK;
             Close();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (cmbMasaNo.SelectedIndex < 0) return;
+
+            int eskiMasaNo= _siparis.MasaNo;
+            int hedefNo = (int)cmbMasaNo.SelectedItem;
+            _siparis.MasaNo = hedefNo;
+
+            BilgileriGuncelle();
+            if (MasaTasindi != null)
+                MasaTasindi(eskiMasaNo, hedefNo);
+        }
+
+        private void dgvSiparisDetaylar_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        
     }
 }

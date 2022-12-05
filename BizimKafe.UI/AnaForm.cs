@@ -66,10 +66,24 @@ namespace BizimKafe.UI
                 lvi.ImageKey = "dolu";
             }
             var frmSiparis = new SiparisForm(db, siparis); //Bu şekilde yaparsak formdan forma veri gecirmiş oluruz
+            frmSiparis.MasaTasindi += FrmSiparis_MasaTasindi; // += olmasının sebebi event olması eventlerde her daim += ile tanımlama yapılır
+            
             DialogResult sonuc = frmSiparis.ShowDialog();
 
             if (sonuc == DialogResult.OK)
                 lvi.ImageKey = "bos";
+        }
+       
+        private void FrmSiparis_MasaTasindi(int eskiMasaNo, int yeniMasaNo)
+        {
+            foreach (ListViewItem item in lvwMasalar.Items)
+            {
+                int masaNo = (int)item.Tag;
+                if (masaNo == eskiMasaNo)
+                    item.ImageKey = "bos";
+                if (masaNo == yeniMasaNo)
+                    item.ImageKey = "dolu";
+            }
         }
 
         private void tsmiGecmisSiparisler_Click(object sender, EventArgs e)

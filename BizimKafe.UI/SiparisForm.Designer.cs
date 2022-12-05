@@ -35,7 +35,11 @@
             this.nudAdet = new System.Windows.Forms.NumericUpDown();
             this.btnEkle = new System.Windows.Forms.Button();
             this.dgvSiparisDetaylar = new System.Windows.Forms.DataGridView();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmbMasaNo = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.lblMasaNo = new System.Windows.Forms.Label();
@@ -45,10 +49,6 @@
             this.btnOde = new System.Windows.Forms.Button();
             this.btnAnaSayfayaDon = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.nudAdet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSiparisDetaylar)).BeginInit();
             this.SuspendLayout();
@@ -126,16 +126,43 @@
             this.dgvSiparisDetaylar.RowTemplate.Height = 25;
             this.dgvSiparisDetaylar.Size = new System.Drawing.Size(507, 474);
             this.dgvSiparisDetaylar.TabIndex = 6;
+            this.dgvSiparisDetaylar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSiparisDetaylar_CellContentClick);
             // 
-            // comboBox1
+            // Column1
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(625, 27);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 23);
-            this.comboBox1.TabIndex = 8;
+            this.Column1.DataPropertyName = "UrunAd";
+            this.Column1.HeaderText = "Ürün";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "BirimFiyat";
+            dataGridViewCellStyle1.Format = "c2";
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Column2.HeaderText = "Birim Fiyatı";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.DataPropertyName = "Adet";
+            this.Column3.HeaderText = "Adet";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "TutarTL";
+            this.Column4.HeaderText = "Tutar";
+            this.Column4.Name = "Column4";
+            // 
+            // cmbMasaNo
+            // 
+            this.cmbMasaNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbMasaNo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbMasaNo.FormattingEnabled = true;
+            this.cmbMasaNo.Location = new System.Drawing.Point(625, 27);
+            this.cmbMasaNo.Name = "cmbMasaNo";
+            this.cmbMasaNo.Size = new System.Drawing.Size(121, 23);
+            this.cmbMasaNo.TabIndex = 8;
             // 
             // label3
             // 
@@ -155,6 +182,7 @@
             this.button1.TabIndex = 9;
             this.button1.Text = "TAŞI";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lblMasaNo
             // 
@@ -243,32 +271,6 @@
             this.label7.TabIndex = 16;
             this.label7.Text = "Masa No";
             // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "UrunAd";
-            this.Column1.HeaderText = "Ürün";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "BirimFiyat";
-            dataGridViewCellStyle1.Format = "c2";
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Column2.HeaderText = "Birim Fiyatı";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.DataPropertyName = "Adet";
-            this.Column3.HeaderText = "Adet";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.DataPropertyName = "TutarTL";
-            this.Column4.HeaderText = "Tutar";
-            this.Column4.Name = "Column4";
-            // 
             // SiparisForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -282,7 +284,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lblMasaNo);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbMasaNo);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dgvSiparisDetaylar);
             this.Controls.Add(this.btnEkle);
@@ -308,7 +310,7 @@
         private NumericUpDown nudAdet;
         private Button btnEkle;
         private DataGridView dgvSiparisDetaylar;
-        private ComboBox comboBox1;
+        private ComboBox cmbMasaNo;
         private Label label3;
         private Button button1;
         private Label lblMasaNo;
